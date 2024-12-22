@@ -74,6 +74,7 @@ class _MainScreenState extends State<MainScreen> {
                   ))
               .toList(),
         ),
+        extendBody: true,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           height: 64,
