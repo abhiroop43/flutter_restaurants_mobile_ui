@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/nav_bar.dart';
 import 'package:restaurants_mobile_ui/nav_model.dart';
+import 'package:restaurants_mobile_ui/utils.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -38,8 +39,7 @@ class _MainScreenState extends State<MainScreen> {
       onPopInvokedWithResult: (bool didPop, Object? result) {
         if (items[selectedTab].navKey.currentState?.canPop() ?? false) {
           items[selectedTab].navKey.currentState?.pop();
-          // return Future.value(false);
-        } else {}
+        }
       },
       child: Scaffold(
           bottomNavigationBar: NavBar(
@@ -71,37 +71,31 @@ class _MainScreenState extends State<MainScreen> {
                 .toList(),
           )),
     );
-
-    // return Scaffold(
-    //     appBar: AppBar(
-    //   backgroundColor: primaryColor,
-    //   title: const Text("Restaurants Management"),
-    // ));
   }
 }
 
 class TabPage extends StatelessWidget {
   final int tab;
 
-  // const TabPage({Key? key, required this.tab}) : super(key: key);
-
   const TabPage({super.key, required this.tab});
 
   @override
   Widget build(BuildContext context) {
+    String title = getTabName(tab);
+
     return Scaffold(
-      appBar: AppBar(title: Text('Tab $tab'), backgroundColor: primaryColor),
+      appBar: AppBar(title: Text(title), backgroundColor: primaryColor),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Tab $tab'),
+          Text('View $title'),
           ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => Page(tab: tab)));
               },
-              child: const Text('Go to page'))
+              child: const Text('View Details'))
         ],
       )),
     );
@@ -115,10 +109,10 @@ class Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String title = getTabName(tab);
     return Scaffold(
-      appBar:
-          AppBar(title: Text('Page Tab $tab'), backgroundColor: primaryColor),
-      body: Center(child: Text('Tab $tab')),
+      appBar: AppBar(title: Text(title), backgroundColor: primaryColor),
+      body: Center(child: Text(title)),
     );
   }
 }

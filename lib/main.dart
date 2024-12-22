@@ -16,14 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: primaryColor, primarySwatch: primaryColor),
-      home: SafeArea(
-        left: false,
-        right: false,
-        top: true,
-        bottom: false,
-        minimum: const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 0.0),
-        child: const MainScreen(),
-      ),
+      home: MainScreen(),
     );
   }
 }

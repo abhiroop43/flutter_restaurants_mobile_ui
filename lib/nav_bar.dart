@@ -12,8 +12,9 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: EdgeInsets.zero,
         margin: EdgeInsets.only(
-            left: 16, right: 16, bottom: Platform.isAndroid ? 8 : 0),
+            left: 0, right: 0, bottom: Platform.isAndroid ? 16 : 0),
         child: BottomAppBar(
             elevation: 0.0,
             child: ClipRRect(
@@ -25,10 +26,9 @@ class NavBar extends StatelessWidget {
                       children: [
                         navItem(Icons.home_outlined, pageIndex == 0,
                             onTap: () => onTap(0)),
-                        navItem(Icons.message_outlined, pageIndex == 1,
+                        navItem(Icons.pin_drop_outlined, pageIndex == 1,
                             onTap: () => onTap(1)),
-                        navItem(
-                            Icons.notifications_none_outlined, pageIndex == 2,
+                        navItem(Icons.favorite_outline, pageIndex == 2,
                             onTap: () => onTap(2)),
                         navItem(Icons.person_outline, pageIndex == 3,
                             onTap: () => onTap(3)),
