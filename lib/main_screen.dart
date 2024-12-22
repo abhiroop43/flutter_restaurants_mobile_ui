@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:restaurants_mobile_ui/login_page.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/nav_bar.dart';
 import 'package:restaurants_mobile_ui/nav_model.dart';
 import 'package:restaurants_mobile_ui/utils.dart';
+
+enum Tabs { none, home, maps, favorites, profile }
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -13,8 +16,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final homeNavKey = GlobalKey<NavigatorState>();
-  final searchNavKey = GlobalKey<NavigatorState>();
-  final notificationNavKey = GlobalKey<NavigatorState>();
+  final mapNavKey = GlobalKey<NavigatorState>();
+  final favoritesNavKey = GlobalKey<NavigatorState>();
   final profileNavKey = GlobalKey<NavigatorState>();
 
   int selectedTab = 0;
@@ -25,10 +28,11 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     items = [
-      NavModel(page: const TabPage(tab: 1), navKey: homeNavKey),
-      NavModel(page: const TabPage(tab: 2), navKey: searchNavKey),
-      NavModel(page: const TabPage(tab: 3), navKey: notificationNavKey),
-      NavModel(page: const TabPage(tab: 4), navKey: profileNavKey)
+      NavModel(page: TabPage(tab: Tabs.home.index), navKey: homeNavKey),
+      NavModel(page: TabPage(tab: Tabs.maps.index), navKey: mapNavKey),
+      NavModel(
+          page: TabPage(tab: Tabs.favorites.index), navKey: favoritesNavKey),
+      NavModel(page: LoginPage(), navKey: profileNavKey)
     ];
   }
 
