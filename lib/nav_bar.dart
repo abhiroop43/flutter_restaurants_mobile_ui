@@ -17,12 +17,15 @@ class NavBar extends StatelessWidget {
             left: 0, right: 0, bottom: Platform.isAndroid ? 16 : 0),
         child: BottomAppBar(
             elevation: 0.0,
+            shape: CircularNotchedRectangle(),
+            notchMargin: 8.0,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
                     height: 60,
                     color: primaryColor,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         navItem(Icons.home_outlined, pageIndex == 0,
                             onTap: () => onTap(0)),

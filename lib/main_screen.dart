@@ -70,8 +70,7 @@ class _MainScreenState extends State<MainScreen> {
                   ))
               .toList(),
         ),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniCenterDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           height: 64,
           width: 64,
@@ -105,7 +104,16 @@ class TabPage extends StatelessWidget {
     String title = getTabName(tab);
 
     return Scaffold(
-      appBar: AppBar(title: Text(title), backgroundColor: primaryColor),
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: primaryColor,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () => debugPrint('Notifications'),
+          ),
+        ],
+      ),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -132,7 +140,16 @@ class Page extends StatelessWidget {
   Widget build(BuildContext context) {
     String title = getTabName(tab);
     return Scaffold(
-      appBar: AppBar(title: Text(title), backgroundColor: primaryColor),
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: primaryColor,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () => debugPrint('Notifications'),
+          ),
+        ],
+      ),
       body: Center(child: Text(title)),
     );
   }
