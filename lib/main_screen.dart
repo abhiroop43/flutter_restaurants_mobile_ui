@@ -42,34 +42,55 @@ class _MainScreenState extends State<MainScreen> {
         }
       },
       child: Scaffold(
-          bottomNavigationBar: NavBar(
-            pageIndex: selectedTab,
-            onTap: (index) {
-              if (index == selectedTab) {
-                items[index]
-                    .navKey
-                    .currentState
-                    ?.popUntil((route) => route.isFirst);
-              } else {
-                setState(() {
-                  selectedTab = index;
-                });
-              }
-            },
+        bottomNavigationBar: NavBar(
+          pageIndex: selectedTab,
+          onTap: (index) {
+            if (index == selectedTab) {
+              items[index]
+                  .navKey
+                  .currentState
+                  ?.popUntil((route) => route.isFirst);
+            } else {
+              setState(() {
+                selectedTab = index;
+              });
+            }
+          },
+        ),
+        body: IndexedStack(
+          index: selectedTab,
+          children: items
+              .map((page) => Navigator(
+                    key: page.navKey,
+                    onGenerateInitialRoutes: (navigator, initialRoute) {
+                      return [
+                        MaterialPageRoute(builder: (context) => page.page)
+                      ];
+                    },
+                  ))
+              .toList(),
+        ),
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterDocked,
+        floatingActionButton: Container(
+          height: 64,
+          width: 64,
+          margin: EdgeInsets.only(top: 16),
+          child: FloatingActionButton(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            onPressed: () => debugPrint('Add new item'),
+            shape: RoundedRectangleBorder(
+              side: const BorderSide(width: 3, color: primaryColor),
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: const Icon(
+              Icons.add,
+              color: primaryColor,
+            ),
           ),
-          body: IndexedStack(
-            index: selectedTab,
-            children: items
-                .map((page) => Navigator(
-                      key: page.navKey,
-                      onGenerateInitialRoutes: (navigator, initialRoute) {
-                        return [
-                          MaterialPageRoute(builder: (context) => page.page)
-                        ];
-                      },
-                    ))
-                .toList(),
-          )),
+        ),
+      ),
     );
   }
 }

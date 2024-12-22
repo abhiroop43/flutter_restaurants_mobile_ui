@@ -28,6 +28,7 @@ class NavBar extends StatelessWidget {
                             onTap: () => onTap(0)),
                         navItem(Icons.pin_drop_outlined, pageIndex == 1,
                             onTap: () => onTap(1)),
+                        const SizedBox(width: 80),
                         navItem(Icons.favorite_outline, pageIndex == 2,
                             onTap: () => onTap(2)),
                         navItem(Icons.person_outline, pageIndex == 3,
