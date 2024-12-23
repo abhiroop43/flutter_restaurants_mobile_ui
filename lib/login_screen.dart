@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurants_mobile_ui/forgot_password_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/profile_screen.dart';
+import 'package:restaurants_mobile_ui/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -87,7 +88,7 @@ class _LoginScreen extends State<LoginScreen> {
             TextButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => ForgotPasswordScreen()));
+                    MaterialPageRoute(builder: (_) => RegisterScreen()));
               },
               child: Text(
                 'New User? Create Account',
