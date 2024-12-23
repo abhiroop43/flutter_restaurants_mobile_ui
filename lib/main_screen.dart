@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurants_mobile_ui/login_page.dart';
+import 'package:restaurants_mobile_ui/login_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/nav_bar.dart';
 import 'package:restaurants_mobile_ui/nav_model.dart';
@@ -32,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
       NavModel(page: TabPage(tab: Tabs.maps.index), navKey: mapNavKey),
       NavModel(
           page: TabPage(tab: Tabs.favorites.index), navKey: favoritesNavKey),
-      NavModel(page: LoginPage(), navKey: profileNavKey)
+      NavModel(page: LoginScreen(), navKey: profileNavKey)
     ];
   }
 
@@ -46,6 +46,7 @@ class _MainScreenState extends State<MainScreen> {
         }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         bottomNavigationBar: NavBar(
           pageIndex: selectedTab,
           onTap: (index) {
