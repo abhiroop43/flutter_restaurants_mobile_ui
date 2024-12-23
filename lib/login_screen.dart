@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurants_mobile_ui/forgot_password_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/profile_screen.dart';
 
@@ -6,7 +7,7 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  _LoginScreen createState() => _LoginScreen();
+  State<LoginScreen> createState() => _LoginScreen();
 }
 
 class _LoginScreen extends State<LoginScreen> {
@@ -14,9 +15,9 @@ class _LoginScreen extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
-        backgroundColor: primaryColor,
-      ),
+          title: Text('Login'),
+          backgroundColor: primaryColor,
+          automaticallyImplyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -56,11 +57,12 @@ class _LoginScreen extends State<LoginScreen> {
             ),
             TextButton(
               onPressed: () {
-                //TODO FORGOT PASSWORD SCREEN GOES HERE
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => ForgotPasswordScreen()));
               },
               child: Text(
                 'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                style: TextStyle(color: primaryColor, fontSize: 15),
               ),
             ),
             Container(
@@ -82,7 +84,18 @@ class _LoginScreen extends State<LoginScreen> {
             SizedBox(
               height: 50,
             ),
-            Text('New User? Create Account')
+            TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => ForgotPasswordScreen()));
+              },
+              child: Text(
+                'New User? Create Account',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.inverseSurface,
+                    fontSize: 15),
+              ),
+            ),
           ],
         ),
       ),
