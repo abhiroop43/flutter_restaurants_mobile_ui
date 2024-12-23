@@ -16,6 +16,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final passwordController = TextEditingController();
   final passwordConfirmationController = TextEditingController();
 
+  Future<void> _authenticate() async {
+    if (_formKey.currentState!.validate() == false) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        dismissDirection: DismissDirection.none,
+        content: Text(
+          'Success',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +40,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           title: Text('Register New User'),
           backgroundColor: primaryColor,
           automaticallyImplyLeading: false),
-      body: Column(
+      body: SingleChildScrollView(
+          child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 60.0),
@@ -45,26 +63,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   const SizedBox(height: 50),
                   AuthenticationTextFormField(
+                    key: const Key('email'),
                     icon: Icons.email,
                     label: 'Email',
                     textEditingController: emailController,
                   ),
                   AuthenticationTextFormField(
+                    key: const Key('password'),
                     icon: Icons.vpn_key,
                     label: 'Password',
                     textEditingController: passwordController,
                   ),
                   AuthenticationTextFormField(
+                    key: const Key('password_confirmation'),
                     icon: Icons.password,
                     label: 'Password Confirmation',
                     textEditingController: passwordConfirmationController,
+                    confirmationController: passwordController,
                   ),
                   const SizedBox(height: 25),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(50),
                         backgroundColor: primaryColor),
-                    onPressed: () {},
+                    onPressed: _authenticate,
                     child: Text(
                       'Register',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -90,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         ],
-      ),
+      )),
     );
   }
 }
