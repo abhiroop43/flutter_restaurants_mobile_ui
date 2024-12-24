@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:restaurants_mobile_ui/forgot_password_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/register_screen.dart';
+import 'package:restaurants_mobile_ui/shared/auth/auth_provider.dart';
 import 'package:restaurants_mobile_ui/shared/text_form_field_with_icon.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,8 +20,8 @@ class _LoginScreen extends State<LoginScreen> {
   Future<void> _authenticate() async {
     if (_formKey.currentState!.validate() == false) return;
 
-    bool loginSuccess =
-        await login(emailController.text, passwordController.text);
+    bool loginSuccess = await AuthProvider()
+        .doNewLogin(emailController.text, passwordController.text);
 
     if (loginSuccess && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -51,38 +49,6 @@ class _LoginScreen extends State<LoginScreen> {
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
-    }
-  }
-
-  Future<bool> login(String email, String password) async {
-    debugPrint('email: $email');
-    debugPrint('password: $password');
-
-    try {
-      Response response = await post(
-          Uri.parse(
-              'https://abhiroopsantra-restaurants-api-prod.azurewebsites.net/api/identity/login'),
-          body: jsonEncode({
-            'email': email,
-            'password': password,
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-          });
-
-      debugPrint('response: ${response.statusCode}');
-      if (response.statusCode == 200) {
-        var data = jsonDecode(response.body.toString());
-        debugPrint(response.body.toString());
-        debugPrint(data['accessToken']);
-        return true;
-      } else {
-        return false;
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-
-      return false;
     }
   }
 

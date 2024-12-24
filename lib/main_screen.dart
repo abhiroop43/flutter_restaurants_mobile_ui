@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:restaurants_mobile_ui/home_screen.dart';
 import 'package:restaurants_mobile_ui/login_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/nav_bar.dart';
 import 'package:restaurants_mobile_ui/nav_model.dart';
+import 'package:restaurants_mobile_ui/profile_screen.dart';
+import 'package:restaurants_mobile_ui/shared/auth/auth_provider.dart';
 import 'package:restaurants_mobile_ui/utils.dart';
 
 enum Tabs { none, home, maps, favorites, profile }
@@ -27,12 +30,17 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+    bool isLoggedIn = AuthProvider().isAuthorized;
+    debugPrint('Is logged in: $isLoggedIn');
+
     items = [
-      NavModel(page: TabPage(tab: Tabs.home.index), navKey: homeNavKey),
+      NavModel(page: HomeScreen(), navKey: homeNavKey),
       NavModel(page: TabPage(tab: Tabs.maps.index), navKey: mapNavKey),
       NavModel(
           page: TabPage(tab: Tabs.favorites.index), navKey: favoritesNavKey),
-      NavModel(page: LoginScreen(), navKey: profileNavKey)
+      NavModel(
+          page: isLoggedIn ? ProfileScreen() : LoginScreen(),
+          navKey: profileNavKey)
     ];
   }
 

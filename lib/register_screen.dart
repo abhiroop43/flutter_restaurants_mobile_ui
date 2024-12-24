@@ -49,9 +49,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: SizedBox(
                   width: 200,
                   height: 150,
-                  /*decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(50.0)),*/
                   child: Image(image: AssetImage('assets/images/rms.png'))),
             ),
           ),
