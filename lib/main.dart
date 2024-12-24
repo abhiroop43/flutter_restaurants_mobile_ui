@@ -7,6 +7,8 @@ void main() {
 
 const primaryColor = Colors.blueAccent;
 const errorColor = Colors.redAccent;
+const successColor = Colors.teal;
+const warningColor = Colors.orangeAccent;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
