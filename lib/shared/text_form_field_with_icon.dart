@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 
-class AuthenticationTextFormField extends StatelessWidget {
-  const AuthenticationTextFormField({
+class TextFormFieldWithIcon extends StatelessWidget {
+  const TextFormFieldWithIcon({
     this.confirmationController,
     required this.icon,
     required this.label,

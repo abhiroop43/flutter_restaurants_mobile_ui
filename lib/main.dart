@@ -5,7 +5,8 @@ void main() {
   runApp(const MyApp());
 }
 
-const primaryColor = Colors.blue;
+const primaryColor = Colors.blueAccent;
+const errorColor = Colors.redAccent;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,7 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: primaryColor, primarySwatch: primaryColor),
+      // theme: ThemeData(primaryColor: primaryColor, primarySwatch: primaryColor),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: primaryColor)
+            .copyWith(error: errorColor),
+        useMaterial3: true,
+      ),
       home: MainScreen(),
     );
   }

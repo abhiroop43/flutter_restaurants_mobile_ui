@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurants_mobile_ui/login_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
-import 'package:restaurants_mobile_ui/shared/authentication_text_form_field.dart';
+import 'package:restaurants_mobile_ui/shared/text_form_field_with_icon.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -62,19 +62,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 50),
-                  AuthenticationTextFormField(
+                  TextFormFieldWithIcon(
                     key: const Key('email'),
                     icon: Icons.email,
                     label: 'Email',
                     textEditingController: emailController,
                   ),
-                  AuthenticationTextFormField(
+                  TextFormFieldWithIcon(
                     key: const Key('password'),
                     icon: Icons.vpn_key,
                     label: 'Password',
                     textEditingController: passwordController,
                   ),
-                  AuthenticationTextFormField(
+                  TextFormFieldWithIcon(
                     key: const Key('password_confirmation'),
                     icon: Icons.password,
                     label: 'Password Confirmation',
