@@ -13,9 +13,9 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<bool> isAuthorized() async {
-  //   return (await storage.read(key: 'accessToken')) != null;
-  // }
+  Future<bool> isLoggedIn() async {
+    return (await storage.read(key: 'accessToken')) != null;
+  }
 
   Future<bool> doNewLogin(String email, String password) async {
     debugPrint('Logging in with email: $email');
