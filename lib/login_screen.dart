@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurants_mobile_ui/forgot_password_screen.dart';
+import 'package:restaurants_mobile_ui/home_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/register_screen.dart';
 import 'package:restaurants_mobile_ui/shared/auth/auth_provider.dart';
@@ -24,6 +25,7 @@ class _LoginScreen extends State<LoginScreen> {
         .doNewLogin(emailController.text, passwordController.text);
 
     if (loginSuccess && context.mounted) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           behavior: SnackBarBehavior.floating,

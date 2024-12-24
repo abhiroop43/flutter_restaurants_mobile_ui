@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurants_mobile_ui/favorites_screen.dart';
 import 'package:restaurants_mobile_ui/home_screen.dart';
 import 'package:restaurants_mobile_ui/login_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
+import 'package:restaurants_mobile_ui/maps_screen.dart';
 import 'package:restaurants_mobile_ui/nav_bar.dart';
 import 'package:restaurants_mobile_ui/nav_model.dart';
 import 'package:restaurants_mobile_ui/profile_screen.dart';
@@ -24,87 +27,107 @@ class _MainScreenState extends State<MainScreen> {
   final profileNavKey = GlobalKey<NavigatorState>();
 
   int selectedTab = 0;
+  bool isLoggedIn = false;
 
   List<NavModel> items = [];
 
   @override
   void initState() {
     super.initState();
-    bool isLoggedIn = AuthProvider().isAuthorized;
-    debugPrint('Is logged in: $isLoggedIn');
 
     items = [
       NavModel(page: HomeScreen(), navKey: homeNavKey),
       NavModel(page: TabPage(tab: Tabs.maps.index), navKey: mapNavKey),
       NavModel(
           page: TabPage(tab: Tabs.favorites.index), navKey: favoritesNavKey),
-      NavModel(
-          page: isLoggedIn ? ProfileScreen() : LoginScreen(),
-          navKey: profileNavKey)
+      NavModel(page: ProfileScreen(), navKey: profileNavKey)
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (bool didPop, Object? result) {
-        if (items[selectedTab].navKey.currentState?.canPop() ?? false) {
-          items[selectedTab].navKey.currentState?.pop();
-        }
-      },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        bottomNavigationBar: NavBar(
-          pageIndex: selectedTab,
-          onTap: (index) {
-            if (index == selectedTab) {
-              items[index]
-                  .navKey
-                  .currentState
-                  ?.popUntil((route) => route.isFirst);
-            } else {
-              setState(() {
-                selectedTab = index;
-              });
-            }
-          },
-        ),
-        body: IndexedStack(
-          index: selectedTab,
-          children: items
-              .map((page) => Navigator(
-                    key: page.navKey,
-                    onGenerateInitialRoutes: (navigator, initialRoute) {
-                      return [
-                        MaterialPageRoute(builder: (context) => page.page)
-                      ];
-                    },
-                  ))
-              .toList(),
-        ),
-        extendBody: true,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Container(
-          height: 64,
-          width: 64,
-          margin: EdgeInsets.only(top: 16),
-          child: FloatingActionButton(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            onPressed: () => debugPrint('Add new item'),
-            shape: RoundedRectangleBorder(
-              side: const BorderSide(width: 3, color: primaryColor),
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: const Icon(
-              Icons.add,
-              color: primaryColor,
-            ),
-          ),
-        ),
-      ),
-    );
+    isLoggedIn = AuthProvider().isAuthorized;
+
+    debugPrint('Is logged in: $isLoggedIn');
+
+    items = [
+      NavModel(page: HomeScreen(), navKey: homeNavKey),
+      NavModel(
+          page: AuthProvider().isAuthorized ? MapsScreen() : LoginScreen(),
+          navKey: mapNavKey),
+      NavModel(
+          page: AuthProvider().isAuthorized ? FavoritesScreen() : LoginScreen(),
+          navKey: favoritesNavKey),
+      NavModel(
+          page: AuthProvider().isAuthorized ? ProfileScreen() : LoginScreen(),
+          navKey: profileNavKey)
+    ];
+
+    return Consumer<AuthProvider>(
+        builder: (context, auth, child) => PopScope(
+              canPop: false,
+              onPopInvokedWithResult: (bool didPop, Object? result) {
+                if (items[selectedTab].navKey.currentState?.canPop() ?? false) {
+                  items[selectedTab].navKey.currentState?.pop();
+                }
+              },
+              child: Scaffold(
+                resizeToAvoidBottomInset: false,
+                bottomNavigationBar: NavBar(
+                  pageIndex: selectedTab,
+                  onTap: (index) {
+                    isLoggedIn = AuthProvider().isAuthorized;
+                    debugPrint('Is logged in: $isLoggedIn');
+
+                    if (index == selectedTab) {
+                      items[index]
+                          .navKey
+                          .currentState
+                          ?.popUntil((route) => route.isFirst);
+                    } else {
+                      setState(() {
+                        selectedTab = index;
+                      });
+                    }
+                  },
+                ),
+                body: IndexedStack(
+                  index: selectedTab,
+                  children: items
+                      .map((page) => Navigator(
+                            key: page.navKey,
+                            onGenerateInitialRoutes: (navigator, initialRoute) {
+                              return [
+                                MaterialPageRoute(
+                                    builder: (context) => page.page)
+                              ];
+                            },
+                          ))
+                      .toList(),
+                ),
+                extendBody: true,
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                floatingActionButton: Container(
+                  height: 64,
+                  width: 64,
+                  margin: EdgeInsets.only(top: 16),
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    elevation: 0,
+                    onPressed: () => debugPrint('Add new item'),
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(width: 3, color: primaryColor),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: const Icon(
+                      Icons.add,
+                      color: primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+            ));
   }
 }
 
