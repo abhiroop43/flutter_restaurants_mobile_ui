@@ -22,7 +22,13 @@ class _LoginScreen extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Login'),
+          title: Text(
+            'Login',
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(color: Colors.white),
+          ),
           backgroundColor: primaryColor,
           automaticallyImplyLeading: false),
       body: SingleChildScrollView(

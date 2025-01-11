@@ -13,4 +13,5 @@ class LoginNotifier extends StateNotifier<bool> {
   }
 }
 
-final loginProvider = StateNotifierProvider((ref) => LoginNotifier());
+final loginProvider =
+    StateNotifierProvider<LoginNotifier, bool>((ref) => LoginNotifier());

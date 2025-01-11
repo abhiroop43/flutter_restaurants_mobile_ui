@@ -13,7 +13,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Your Favorite Restaurants'),
+          title: Text(
+            'Favorites',
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(color: Colors.white),
+          ),
           backgroundColor: primaryColor,
         ),
         body: Center(

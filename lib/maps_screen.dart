@@ -13,7 +13,13 @@ class _MapsScreenState extends State<MapsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Restaurants Near You'),
+          title: Text(
+            'Restaurants Nearby',
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(color: Colors.white),
+          ),
           backgroundColor: primaryColor,
         ),
         body: Center(

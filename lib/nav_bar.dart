@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 
-class NavBar extends StatelessWidget {
+class NavBar extends ConsumerWidget {
   final int pageIndex;
   final Function(int) onTap;
 
   const NavBar({super.key, required this.pageIndex, required this.onTap});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return BottomAppBar(
         elevation: 0.0,
         height: 50,
