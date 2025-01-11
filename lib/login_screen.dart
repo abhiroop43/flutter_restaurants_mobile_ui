@@ -1,58 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restaurants_mobile_ui/forgot_password_screen.dart';
-import 'package:restaurants_mobile_ui/home_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
+import 'package:restaurants_mobile_ui/providers/login_provider.dart';
 import 'package:restaurants_mobile_ui/register_screen.dart';
-import 'package:restaurants_mobile_ui/shared/auth/auth_provider.dart';
 import 'package:restaurants_mobile_ui/shared/text_form_field_with_icon.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreen();
+  ConsumerState<LoginScreen> createState() => _LoginScreen();
 }
 
-class _LoginScreen extends State<LoginScreen> {
+class _LoginScreen extends ConsumerState<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  Future<void> _authenticate() async {
-    if (_formKey.currentState!.validate() == false) return;
-
-    bool loginSuccess = await AuthProvider()
-        .doNewLogin(emailController.text, passwordController.text);
-
-    if (loginSuccess && context.mounted) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          dismissDirection: DismissDirection.none,
-          content: Text(
-            'Successfully logged in.',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
-          ),
-          backgroundColor: successColor,
-        ),
-      );
-    } else if (!loginSuccess && context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          behavior: SnackBarBehavior.floating,
-          dismissDirection: DismissDirection.none,
-          content: Text(
-            'Login failed: Incorrect username and/or password.',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
-          ),
-          backgroundColor: Theme.of(context).colorScheme.error,
-        ),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +64,13 @@ class _LoginScreen extends State<LoginScreen> {
                         style: ElevatedButton.styleFrom(
                             minimumSize: const Size.fromHeight(50),
                             backgroundColor: primaryColor),
-                        onPressed: _authenticate,
+                        onPressed: () {
+                          debugPrint(
+                              'Login button pressed: ${emailController.text} ${passwordController.text}');
+
+                          ref.read(loginProvider.notifier).loginUser(
+                              emailController.text, passwordController.text);
+                        },
                         child: Text(
                           'Login',
                           style:
