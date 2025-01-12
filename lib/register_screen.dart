@@ -33,6 +33,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    passwordConfirmationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -69,12 +77,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     icon: Icons.email,
                     label: 'Email',
                     textEditingController: emailController,
+                    isRequired: true,
                   ),
                   TextFormFieldWithIcon(
                     key: const Key('password'),
                     icon: Icons.vpn_key,
                     label: 'Password',
                     textEditingController: passwordController,
+                    isRequired: true,
                   ),
                   TextFormFieldWithIcon(
                     key: const Key('password_confirmation'),
@@ -82,6 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     label: 'Password Confirmation',
                     textEditingController: passwordConfirmationController,
                     confirmationController: passwordController,
+                    isRequired: true,
                   ),
                   const SizedBox(height: 25),
                   ElevatedButton(

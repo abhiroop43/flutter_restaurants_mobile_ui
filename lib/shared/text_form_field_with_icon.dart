@@ -7,6 +7,7 @@ class TextFormFieldWithIcon extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.textEditingController,
+    required this.isRequired,
     super.key,
   });
 
@@ -14,9 +15,10 @@ class TextFormFieldWithIcon extends StatelessWidget {
   final IconData icon;
   final String label;
   final TextEditingController textEditingController;
+  final bool isRequired;
 
   String? _validate(String? value) {
-    if (value!.isEmpty) {
+    if (value!.isEmpty && isRequired) {
       return 'This field cannot be empty.';
     }
 

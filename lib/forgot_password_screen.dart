@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurants_mobile_ui/login_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
+import 'package:restaurants_mobile_ui/shared/text_form_field_with_icon.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -10,6 +10,36 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  final emailController = TextEditingController();
+
+  Future<void> _resetPassword() async {
+    if (_formKey.currentState!.validate() == false) return;
+
+    _formKey.currentState!.save();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        dismissDirection: DismissDirection.none,
+        content: Text(
+          'Success',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+        backgroundColor: Colors.green,
+      ),
+    );
+
+    Navigator.of(context).pop();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,32 +73,36 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             SizedBox(
               height: 50,
             ),
-            Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
-                    hintText: 'Please enter your email to reset your password'),
-              ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Container(
-              height: 50,
-              width: 250,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => LoginScreen()));
-                },
-                child: Text(
-                  'Request Password Reset',
-                  style: TextStyle(color: Colors.white, fontSize: 19),
+            Form(
+              key: _formKey,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  children: [
+                    TextFormFieldWithIcon(
+                      key: const Key('email'),
+                      icon: Icons.email,
+                      label: 'Email',
+                      textEditingController: emailController,
+                      isRequired: true,
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50),
+                          backgroundColor: primaryColor),
+                      onPressed: _resetPassword,
+                      child: Text(
+                        'Request Password Reset',
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: Colors.white,
+                                ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

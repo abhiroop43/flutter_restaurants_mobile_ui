@@ -47,12 +47,14 @@ class _LoginScreen extends ConsumerState<LoginScreen> {
                       icon: Icons.email,
                       label: 'Email',
                       textEditingController: emailController,
+                      isRequired: true,
                     ),
                     TextFormFieldWithIcon(
                       key: const Key('password'),
                       icon: Icons.vpn_key,
                       label: 'Password',
                       textEditingController: passwordController,
+                      isRequired: true,
                     ),
                     const SizedBox(height: 25),
                     ElevatedButton(
