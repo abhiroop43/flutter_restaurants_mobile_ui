@@ -31,8 +31,6 @@ class TextFormFieldWithIcon extends StatelessWidget {
 
     if (key.toString().contains('password_confirmation') == true &&
         value != confirmationController?.text) {
-      debugPrint('value: $value');
-      debugPrint('confirmationController: ${confirmationController?.text}');
       return 'The password does not match.';
     }
 

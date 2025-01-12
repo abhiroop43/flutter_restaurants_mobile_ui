@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurants_mobile_ui/login_screen.dart';
 import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/shared/text_form_field_with_icon.dart';
 
@@ -37,9 +36,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Register New User'),
-          backgroundColor: primaryColor,
-          automaticallyImplyLeading: false),
+        title: Text('Register New User',
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium!
+                .copyWith(color: Colors.white)),
+        backgroundColor: primaryColor,
+        leading: BackButton(color: Colors.white),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
           child: Column(
         children: [
@@ -94,8 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(height: 25),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => LoginScreen()));
+                      Navigator.of(context).pop();
                     },
                     child: Text(
                       'Already have an account? Login instead',

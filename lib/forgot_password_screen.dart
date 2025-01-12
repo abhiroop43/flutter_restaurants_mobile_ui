@@ -21,8 +21,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               .headlineMedium!
               .copyWith(color: Colors.white),
         ),
-        automaticallyImplyLeading: false,
+        leading: BackButton(color: Colors.white),
         backgroundColor: primaryColor,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -18,8 +18,6 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<bool> doNewLogin(String email, String password) async {
-    debugPrint('Logging in with email: $email');
-    debugPrint('Logging in with password: $password');
     try {
       Response response = await post(
           Uri.parse(
@@ -37,7 +35,6 @@ class AuthProvider extends ChangeNotifier {
 
         await storage.write(key: 'accessToken', value: data['accessToken']);
         await storage.write(key: 'email', value: email);
-        debugPrint('Logged in with email: $email');
         isAuthorized = true;
         notifyListeners();
         return true;

@@ -7,6 +7,7 @@ import 'package:restaurants_mobile_ui/main.dart';
 import 'package:restaurants_mobile_ui/maps_screen.dart';
 import 'package:restaurants_mobile_ui/profile_screen.dart';
 import 'package:restaurants_mobile_ui/providers/login_provider.dart';
+import 'package:restaurants_mobile_ui/utils.dart';
 
 enum Tabs { none, home, maps, favorites, profile }
 
@@ -46,10 +47,19 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final isLoggedIn = ref.watch(loginProvider);
-    debugPrint('isLoggedIn: $isLoggedIn');
-    debugPrint('currentPageIndex: $currentPageIndex');
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          getTabName(currentPageIndex),
+          style: Theme.of(context)
+              .textTheme
+              .headlineMedium!
+              .copyWith(color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: primaryColor,
+      ),
       resizeToAvoidBottomInset: false,
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -92,7 +102,6 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 navItem(Icons.person_outline, currentPageIndex == 3,
                     onTap: () => onTap(3)),
               ])),
-
       body: <Widget>[
         HomeScreen(),
         isLoggedIn == true ? MapsScreen() : LoginScreen(),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurants_mobile_ui/main.dart';
 
 class MapsScreen extends StatefulWidget {
   const MapsScreen({super.key});
@@ -11,19 +10,8 @@ class MapsScreen extends StatefulWidget {
 class _MapsScreenState extends State<MapsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Restaurants Nearby',
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium!
-                .copyWith(color: Colors.white),
-          ),
-          backgroundColor: primaryColor,
-        ),
-        body: Center(
-          child: Text('Maps Page'),
-        ));
+    return Center(
+      child: Text('Maps Page'),
+    );
   }
 }

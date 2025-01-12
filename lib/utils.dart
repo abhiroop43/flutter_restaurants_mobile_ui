@@ -1,15 +1,14 @@
 String getTabName(int tabIndex) {
   switch (tabIndex) {
-    case 1:
+    case 0:
       return 'Home';
+    case 1:
+      return 'Restaurants Nearby';
     case 2:
-      return 'Restaurants Near Me';
-    case 3:
       return 'Favorites';
-    case 4:
+    case 3:
       return 'My Profile';
-    // Add more cases as needed
     default:
-      return 'Unknown';
+      return 'Restaurants';
   }
 }
